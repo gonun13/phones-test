@@ -2,7 +2,7 @@
 
 namespace nuno\jumia;
 
-use SQLite3;
+require('../app/Customer.php');
 
 // check filter requests
 if (isset($_REQUEST['filterCountry']) && $_REQUEST['filterCountry'])
@@ -31,12 +31,16 @@ $regexMap = array(
 $dbfile = $_SERVER['DOCUMENT_ROOT'] . '/../storage/sample.db';
 
 // open db
+/*
 $db = new SQLite3($dbfile, SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
 $tablesquery = $db->query("SELECT * FROM customer");
+*/
+$records = new Customer($dbfile);
+
 
 // build results
 $results = array();
-while ($table = $tablesquery->fetchArray(SQLITE3_ASSOC)) {
+foreach ($records as $table) {
     $parts = explode(' ', $table['phone']);
     $country = $country_code = $valid = false;
     foreach ($regexMap as $regex)
