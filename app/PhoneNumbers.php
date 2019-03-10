@@ -11,6 +11,9 @@ class PhoneNumbers
 
     /**
      * constructor
+     * 
+     * @param array $records
+     * @param array $regexMap
      */ 
     public function __construct($records, $regexMap)
     {
