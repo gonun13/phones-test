@@ -6,17 +6,17 @@ require('../app/Customer.php');
 require('../app/PhoneNumbers.php');
 
 // check filter requests
-if (isset($_REQUEST['filterCountry']) && $_REQUEST['filterCountry'])
-{
+$filterCountry = ''; 
+$filterState = '';
+$filterPage = '';
+if (isset($_REQUEST['filterCountry']) && $_REQUEST['filterCountry']) {
     $filterCountry = $_REQUEST['filterCountry'];
 }
-if (isset($_REQUEST['filterState']) && $_REQUEST['filterState'])
-{
+if (isset($_REQUEST['filterState']) && $_REQUEST['filterState']) {
     $filterState = $_REQUEST['filterState'];
 }
-if (isset($_REQUEST['page']) && $_REQUEST['page'])
-{
-    $page = $_REQUEST['page'];
+if (isset($_REQUEST['filterPage']) && $_REQUEST['filterPage']) {
+    $filterPage = $_REQUEST['filterPage'];
 }
 
 // set regex map
@@ -34,9 +34,11 @@ $dbfile = $_SERVER['DOCUMENT_ROOT'] . '/../storage/sample.db';
 $records = new Customer($dbfile);
 
 // get results
-$numbers = new PhoneNumbers($regexMap);
+$numbers = new PhoneNumbers($records, $regexMap);
 $numbers->setFilter('filterCountry', $filterCountry);
 $numbers->setFilter('filterState', $filterState);
-$results = $numbers->list($records);
+$results = $numbers->list($filterPage);
 
-var_dump($results);
+// return json for frontend use
+header("Content-type:application/json");
+echo json_encode($results);

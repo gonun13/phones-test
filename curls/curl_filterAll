@@ -1,0 +1,1 @@
+curl '0.0.0.0:8080/?filterPage=1&filterCountry=Cameroon&filterState=NOK'

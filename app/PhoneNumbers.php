@@ -5,14 +5,16 @@ namespace nuno\jumia;
 class PhoneNumbers
 {
     private $regexMap;
+    private $records;
     public $filters;
-    protected $codeMatch;
+    public $limit = 5;
 
     /**
      * constructor
      */ 
-    public function __construct($regexMap)
+    public function __construct($records, $regexMap)
     {
+        $this->records = $records;
         $this->regexMap = $regexMap;
     }
 
@@ -39,14 +41,14 @@ class PhoneNumbers
     /**
      * list numbers
      * 
-     * @param array $records
+     * @param array $page
      * @return array
      */
-    public function list($records)
+    public function list($page='')
     {
         $results = array();
         // cycle all records
-        foreach ($records as $record) {
+        foreach ($this->records as $record) {
             // parse the number for info
             $info = $this->parsePhone($record['phone']);
             // no info, means a filter occured
@@ -59,6 +61,10 @@ class PhoneNumbers
                     'phone_number' => $info['phone_number'],
                 );
             }
+        }
+        // apply page filter 
+        if ($page) {
+            $results = array_slice($results, ($page-1)*$this->limit, $this->limit);
         }
         return $results;
     }
@@ -86,7 +92,7 @@ class PhoneNumbers
                     $isValid = true;
                 }
                 // we had a match already
-                $break;
+                break;
             }
         }
         // for an active country filter skip no matches
