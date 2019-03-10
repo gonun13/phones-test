@@ -13,9 +13,9 @@ cd jumia-test
 ```
 
 Running start will: 
-Create two containers (PHP & Web with all required dependencies)
-Boot them up.
-You access the dataset on: <your_ip>:8080
+Create two containers (PHP & Web with all required dependencies) & boot them up.
+
+You can access the dataset on: <your_ip>:8080
 
 ## How to test
 
