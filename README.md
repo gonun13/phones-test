@@ -1,4 +1,4 @@
-# jumia-test
+# phones-test
 Quick app
 (Fresh Ubuntu 18 and only requires docker and docker compose)
 
