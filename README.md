@@ -5,9 +5,9 @@ Quick app
 Steps to install (requires sudo level)
 
 ```
-git clone git@github.com:gonun13/jumia-test.git
+git clone git@github.com:gonun13/phones-test.git
 
-cd jumia-test
+cd phones-test
 
 ./start
 ```
